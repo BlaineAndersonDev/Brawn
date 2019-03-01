@@ -1,0 +1,13 @@
+{
+  "name": "CRAE",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "concurrently": "^4.1.0"
+  },
+  "scripts": {
+    "install": "(cd client && yarn) && (cd server && yarn)",
+    "start": "concurrently \"cd client && PORT=3000 yarn start\" \"cd server && PORT=3001 yarn start\""
+  }
+}
