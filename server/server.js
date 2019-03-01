@@ -1,5 +1,6 @@
 import bodyParser from 'body-parser';
 import express from 'express';
+import knex from './knex/knex.js';
 import path from 'path';
 
 const app = express();
@@ -17,7 +18,11 @@ router.get('/cities', (req, res) => {
   const cities = [
     {name: 'New York City', population: 8175133},
     {name: 'Los Angeles',   population: 3792621},
-    {name: 'Chicago',       population: 2695598}
+    {name: 'Chicago',       population: 2695598},
+    {
+      name: 'TEST_DATA',
+      population: process.env.TEST_DATA
+    }
   ]
   res.json(cities)
 });
