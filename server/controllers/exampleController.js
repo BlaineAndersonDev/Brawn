@@ -69,20 +69,20 @@ router.route('/data')
 
 // Basic CRUD setup:
 // GET (Read):
-router.get('/title', async (req, res) => {
-  const results = await knex.select().table('title');
-  return res.json(results)
+router.get('/titles', async (req, res) => {
+  const results = await knex.select().table('titles');
+  return res.json(results);
 });
 // POST (Create):
-router.post('/title', async (req, res) => {
+router.post('/titles', async (req, res) => {
 
 });
 // PUT (Update):
-router.put('/title', async (req, res) => {
+router.put('/titles', async (req, res) => {
 
 });
 // DELETE (Delete):
-router.delete('/title', async (req, res) => {
+router.delete('/titles', async (req, res) => {
 
 });
 
