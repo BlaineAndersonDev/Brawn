@@ -1,5 +1,9 @@
 // REQUIRED for dotenv to work properly in knex.
 require('dotenv').config();
+// const pg = require('pg')
+// pg.defaults.ssl = true
+// Check this for heroku setup:
+// https://elements.heroku.com/addons/heroku-postgresql
 
 module.exports = {
 
