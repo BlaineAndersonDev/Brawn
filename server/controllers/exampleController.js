@@ -1,15 +1,10 @@
 import knex from '../knexconfig.js';
 
-// Create a controller for userController.
+// Create a controller for exampleController.
 const router = require('express').Router();
 
 // Routes:
 router.get('/', async (req, res) => {
-  const results = await knex.select().table('users');
-  return res.json(results)
-});
-
-router.get('/example', async (req, res) => {
   // Knex cheatsheet: https://devhints.io/knex
 
   // Knex has simple . notations to select information simply.
@@ -52,7 +47,7 @@ router.get('/example', async (req, res) => {
 });
 
 // All routes encapsulated into a single function
-router.route('/users')
+router.route('/data')
   .get(function(req,res){
     knex.select().table('users')
   .then(function(collection){
@@ -69,8 +64,27 @@ router.route('/users')
       }
     })
   })
-})
+});
 
+
+// Basic CRUD setup:
+// GET (Read):
+router.get('/title', async (req, res) => {
+  const results = await knex.select().table('title');
+  return res.json(results)
+});
+// POST (Create):
+router.post('/title', async (req, res) => {
+
+});
+// PUT (Update):
+router.put('/title', async (req, res) => {
+
+});
+// DELETE (Delete):
+router.delete('/title', async (req, res) => {
+
+});
 
 // Export routes to `./router.js`
 module.exports = router;
