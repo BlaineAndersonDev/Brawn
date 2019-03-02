@@ -1,0 +1,11 @@
+import express from 'express';
+
+// Create an Express Router to contain all controller 'Routers'.
+const router = express.Router();
+
+// 'Mount' a Controller's Router onto the API Router, allowing all routes within to be used.
+// I.E. `http://localhost:3001/api/users/...`
+router.use('/users', require('./controllers/usersController.js'));
+
+// Export the API Router to the App in `./server.js`.
+module.exports = router;
