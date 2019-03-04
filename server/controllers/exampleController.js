@@ -66,17 +66,20 @@ router.route('/data')
   })
 });
 
-// Basic CRUD setup:
+// Basic Promise Based CRUD setup:
   // req.query | req.params | req.body Explination.
   // https://softwareengineering.stackexchange.com/a/331055
 
 // KNEX docs: https://knexjs.org/
 // KNEX common commands:
-  // .select()                          |       SELECT
-  // .table('<TableName>')              |       FROM/INTO
-  // .returning('<DataToReturn>')       |       RETURNING
-  // .insert('<Data>')                  |       INSERT
-  // .insert('<Data>')                  |       INSERT
+  // .select()                            |       SELECT
+  // .table('<TableName>')                |       FROM/INTO
+  // .returning('<DataToReturn>')         |       RETURNING
+  // .where({ key:value })                |       WHERE
+  // .insert({ key:value })               |       INSERT
+  // .update({ key:value })               |       UPDATE
+  // .del()                               |       DELETE
+  // .catch((err) => {console.log(err)})  |       Error Catching
 
 // GET (Read):
 router.get('/titles', async (req, res) => {
