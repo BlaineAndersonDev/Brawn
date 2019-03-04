@@ -70,31 +70,57 @@ router.route('/data')
   // req.query | req.params | req.body Explination.
   // https://softwareengineering.stackexchange.com/a/331055
 
+// KNEX docs: https://knexjs.org/
 // KNEX common commands:
-  // .insert('<Data>')                  |       INSERT INTO
   // .select()                          |       SELECT
-  // .table('<TableName>')              |       FROM
+  // .table('<TableName>')              |       FROM/INTO
   // .returning('<DataToReturn>')       |       RETURNING
+  // .insert('<Data>')                  |       INSERT
+  // .insert('<Data>')                  |       INSERT
 
 // GET (Read):
 router.get('/titles', async (req, res) => {
-  const readResults = await knex.select().table('titles');
+  const readResults = await knex('titles')
+    .select('*')
+    .catch((err) => {
+      console.log(err)
+    });
   return res.json(readResults);
 });
 // POST (Create):
 router.post('/titles', async (req, res) => {
   const createResults = await knex('titles')
-    .insert({ name: req.query.name })
+    .insert({
+      name: req.query.name
+    })
     .returning('*')
+    .catch((err) => {
+      console.log(err)
+    });
   return res.json(createResults);
 });
 // PUT (Update):
 router.put('/titles', async (req, res) => {
-
+  const updateResults = await knex('titles')
+    .where({ id: req.query.id })
+    .update({
+      name: req.query.name
+    })
+    .returning('*')
+    .catch((err) => {
+      console.log(err)
+    });
+  return res.json(updateResults);
 });
 // DELETE (Delete):
 router.delete('/titles', async (req, res) => {
-
+  const deleteResults = await knex('titles')
+    .where({ id: req.query.id })
+    .del()
+    .catch((err) => {
+      console.log(err)
+    });
+  return res.json(`Title Id ${req.query.id} Deleted Succussfully!`);
 });
 
 // Export routes to `./router.js`
