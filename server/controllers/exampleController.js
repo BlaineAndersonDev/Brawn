@@ -66,16 +66,27 @@ router.route('/data')
   })
 });
 
-
 // Basic CRUD setup:
+  // req.query | req.params | req.body Explination.
+  // https://softwareengineering.stackexchange.com/a/331055
+
+// KNEX common commands:
+  // .insert('<Data>')                  |       INSERT INTO
+  // .select()                          |       SELECT
+  // .table('<TableName>')              |       FROM
+  // .returning('<DataToReturn>')       |       RETURNING
+
 // GET (Read):
 router.get('/titles', async (req, res) => {
-  const results = await knex.select().table('titles');
-  return res.json(results);
+  const readResults = await knex.select().table('titles');
+  return res.json(readResults);
 });
 // POST (Create):
 router.post('/titles', async (req, res) => {
-
+  const createResults = await knex('titles')
+    .insert({ name: req.query.name })
+    .returning('*')
+  return res.json(createResults);
 });
 // PUT (Update):
 router.put('/titles', async (req, res) => {
