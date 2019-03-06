@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Get from './Get.js';
 
-class Title extends Component {
+class Titles extends Component {
   // Initialize the state
   constructor(props){
     super(props);
@@ -20,21 +20,21 @@ class Title extends Component {
   }
 
   render() {
-    let button = null;
+    let results = null;
 
     if (this.state.showResults) {
-      button = <Get />
+      results = <Get />
     } else {
-      button = null
+      results = null
     };
 
     return (
       <div className="App">
         <input type="submit" value="Get Titles" onClick={this.onClick} />
-        {button}
+        {results}
       </div>
     );
   }
 }
 
-export default Title;
+export default Titles;
