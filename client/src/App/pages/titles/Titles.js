@@ -38,9 +38,8 @@ class Titles extends Component {
     let displayTitles = null;
 
     if (this.state.showResults) {
-      displayTitles = this.state.titles.map((item) => <DisplayTitle key={item.id}
-                titleInfo={item} />
-      );
+      displayTitles = this.state.titles.map((item) => <DisplayTitle key={item.id} titleInfo={item} />
+      )
     } else {
       displayTitles = null
     };
@@ -51,8 +50,6 @@ class Titles extends Component {
         <h4>An example of CRUD application in both Frontend & Backend!</h4>
         <input type="submit" value="Get Titles" onClick={this.onClick} />
         {displayTitles}
-
-
       </div>
     );
   }
