@@ -6,7 +6,7 @@ class Title extends Component {
   constructor(props){
     super(props);
     this.state = {
-      list: ["bob"]
+      titles: []
     };
   }
 
@@ -20,24 +20,17 @@ class Title extends Component {
     axios.get('/api/example/titles')
     .then(response => {
       console.log(response)
-      this.setState({ideas: response.data})
+      this.setState({titles: response.data})
     })
     .catch(error => console.log(error))
   }
 
-  // getAllTitles = () => {
-  //   const createResults = fetch('/api/titles')
-  //   .then(list => this.setState({ list }))
-  //   console.log('createResults:' + createResults)
-  // }
-
   render() {
-    const { list } = this.state;
 
     return (
       <div className="App">
         <h1>Title of Items</h1>
-        <p>{list}</p>
+          {this.state.titles.map(item => <p key={item.id}>{item.name}</p>)}
       </div>
     );
   }
