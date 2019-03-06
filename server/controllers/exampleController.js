@@ -83,6 +83,7 @@ router.route('/data')
 
 // GET (Read):
 router.get('/titles', async (req, res) => {
+  console.log('Route `/api/example/titles` returned with readResults: ' + JSON.stringify(readResults))
   const readResults = await knex('titles')
     .select('*')
     .catch((err) => {
