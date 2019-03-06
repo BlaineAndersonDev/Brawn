@@ -83,7 +83,7 @@ router.route('/data')
 
 // GET (Read):
 router.get('/titles', async (req, res) => {
-  console.log('Route `/api/example/titles` returned with readResults: ' + JSON.stringify(readResults))
+  console.log(' >>> Entered Route GET `/api/example/titles`')
   const readResults = await knex('titles')
     .select('*')
     .catch((err) => {
@@ -93,6 +93,7 @@ router.get('/titles', async (req, res) => {
 });
 // POST (Create):
 router.post('/titles', async (req, res) => {
+  console.log(' >>> Entered Route POST `/api/example/titles`')
   const createResults = await knex('titles')
     .insert({
       name: req.query.name
@@ -105,6 +106,7 @@ router.post('/titles', async (req, res) => {
 });
 // PUT (Update):
 router.put('/titles', async (req, res) => {
+  console.log(' >>> Entered Route PUT `/api/example/titles`')
   const updateResults = await knex('titles')
     .where({ id: req.query.id })
     .update({
@@ -118,6 +120,7 @@ router.put('/titles', async (req, res) => {
 });
 // DELETE (Delete):
 router.delete('/titles', async (req, res) => {
+  console.log(' >>> Entered Route DELETE `/api/example/titles`')
   const deleteResults = await knex('titles')
     .where({ id: req.query.id })
     .del()
