@@ -1,36 +1,37 @@
 import React, { Component } from 'react';
-const axios = require('axios');
+import Get from './Get.js';
 
 class Title extends Component {
   // Initialize the state
   constructor(props){
     super(props);
     this.state = {
-      titles: []
+      titles: [],
+      showResults: false
     };
   }
 
-  // Fetch the list on first mount
-  componentDidMount() {
-    this.getAllTitles();
-  }
-
-  // Retrieves the list of items from the Express app
-  getAllTitles = () => {
-    axios.get('/api/example/titles')
-    .then(response => {
-      console.log(response)
-      this.setState({titles: response.data})
-    })
-    .catch(error => console.log(error))
+  onClick = () => {
+    if (this.state.showResults) {
+      this.setState({ showResults: false });
+    } else {
+      this.setState({ showResults: true })
+    };
   }
 
   render() {
+    let button = null;
+
+    if (this.state.showResults) {
+      button = <Get />
+    } else {
+      button = null
+    };
 
     return (
       <div className="App">
-        <h1>Title of Items</h1>
-          {this.state.titles.map(item => <p key={item.id}>{item.name}</p>)}
+        <input type="submit" value="Get Titles" onClick={this.onClick} />
+        {button}
       </div>
     );
   }
