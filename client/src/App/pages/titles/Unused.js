@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 const axios = require('axios');
 
-class Title extends Component {
+class GetTitles extends Component {
   // Initialize the state
   constructor(props){
     super(props);
@@ -36,4 +36,4 @@ class Title extends Component {
   }
 }
 
-export default Title;
+export default GetTitles;

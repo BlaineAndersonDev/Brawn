@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import Get from './Get.js';
+import axios from 'axios';
+import DisplayTitle from './DisplayTitle.js';
 
 class Titles extends Component {
   // Initialize the state
@@ -7,8 +8,12 @@ class Titles extends Component {
     super(props);
     this.state = {
       titles: [],
-      showResults: false
+      showResults: false,
     };
+  }
+
+  componentDidMount() {
+    this.getTitles();
   }
 
   onClick = () => {
@@ -19,19 +24,35 @@ class Titles extends Component {
     };
   }
 
+  getTitles = () => {
+    const results = axios.get('/api/example/titles')
+    .then(response => {
+      console.log(response)
+      this.setState({titles: response.data})
+    })
+    .catch(error => console.log(error))
+    this.setState({ titles: results })
+  }
+
   render() {
-    let results = null;
+    let displayTitles = null;
 
     if (this.state.showResults) {
-      results = <Get />
+      displayTitles = this.state.titles.map((item) => <DisplayTitle key={item.id}
+                titleInfo={item} />
+      );
     } else {
-      results = null
+      displayTitles = null
     };
 
     return (
       <div className="App">
+        <h1>Titles</h1>
+        <h4>An example of CRUD application in both Frontend & Backend!</h4>
         <input type="submit" value="Get Titles" onClick={this.onClick} />
-        {results}
+        {displayTitles}
+
+
       </div>
     );
   }
