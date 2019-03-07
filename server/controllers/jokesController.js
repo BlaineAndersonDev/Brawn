@@ -17,7 +17,7 @@ router.post('/create', async (req, res) => {
   console.log(' Query: ' + Object.keys(req.query))
   const createResults = await knex('jokes')
     .insert({
-      author: req.query.name,
+      author: req.query.author,
       body: req.query.body
     })
     .returning('*')

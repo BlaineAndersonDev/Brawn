@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Joke from './Joke.js';
+import CreateJoke from './CreateJoke.js';
 
 class Jokes extends Component {
   // Initialize the state
@@ -28,22 +29,11 @@ class Jokes extends Component {
   }
 
   handleCreateJoke = (author, body) => {
-    console.log('newJokeAuthor: ' + this.state.newJokeAuthor)
-    console.log('newJokeBody: ' + this.state.newJokeBody)
-    this.setState({
-      newJokeAuthor: author,
-      newJokeBody: body
-    })
-    console.log('newJokeAuthor: ' + this.state.newJokeAuthor)
-    console.log('newJokeBody: ' + this.state.newJokeBody)
-  }
-
-  createJoke = () => {
     // event.preventDefault();
     axios.post(`/api/jokes/create`, null, {
       params: {
-        author: this.state.newJokeAuthor,
-        body: this.state.newJokeBody
+        author: author,
+        body: body
       }
     })
     .catch(err => {
@@ -53,10 +43,6 @@ class Jokes extends Component {
       console.log(JSON.stringify(res));
       console.log(JSON.stringify(res.status));
       console.log(JSON.stringify(res.data));
-      this.setState({
-        newJokeAuthor: '',
-        newJokeBody: ''
-      });
       // Add some kind on 'Creation Complete' Block.
     });
   }
@@ -79,9 +65,6 @@ class Jokes extends Component {
     });
   }
 
-  updateJoke = (id, author, body) => {
-  }
-
   deleteJoke = () => {
 
   }
@@ -91,19 +74,25 @@ class Jokes extends Component {
     return (
       <div>
         <h1>JOKES</h1>
+
+        <div>
+          <CreateJoke handleCreateJoke={this.handleCreateJoke} />
+        </div>
+
         <button onClick={this.consoleJokes}>CLICK MEEEEEE</button>
 
-         <div>
-           {this.state.jokes.map((joke) => {
-              return (
-                <Joke
-                  key={joke.id}
-                  joke={joke}
-                  handleUpdateJoke={this.handleUpdateJoke}
-                />
-              )
-           })}
-         </div>
+        <div>
+          {this.state.jokes.map((joke) => {
+            return (
+              <Joke
+                key={joke.id}
+                joke={joke}
+                handleUpdateJoke={this.handleUpdateJoke}
+              />
+            )
+          })}
+        </div>
+
 
       </div>
     );
