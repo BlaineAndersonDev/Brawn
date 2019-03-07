@@ -5,8 +5,7 @@ class EditTitle extends Component {
   constructor(props){
     super(props);
     this.state = {
-      showMenu: false,
-      nameValue: ''
+      nameValue: '',
     };
   }
 
@@ -19,20 +18,26 @@ class EditTitle extends Component {
   }
 
   updateTitle = (event) => {
-    const titleId = this.props.titleInfo.id;
-    const params = {
-    	name: this.state.nameValue,
-    };
-    const results = axios.put(`/api/example/titles/${titleId}`, {
-        params
-    })
-    .then(response => {
-      console.log(response)
-    })
-    .catch(error => console.log(error))
-    console.log(results)
     event.preventDefault();
+    const titleId = this.props.titleInfo.id;
+    axios.put(`/api/example/titles/${titleId}`, null, {
+      params: {
+        name: this.state.nameValue
+      }
+    })
+    .catch(err => {
+      console.warn(err);
+    })
+    .then(res => {
+      console.log(JSON.stringify(res));
+      console.log(JSON.stringify(res.status));
+      console.log(JSON.stringify(res.data));
+      this.setState({nameValue: ''});
+      // Add some kind on 'Creation Complete' Block.
+    });
   }
+
+
 
   render() {
     return (

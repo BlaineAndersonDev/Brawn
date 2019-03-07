@@ -114,7 +114,7 @@ router.put('/titles/:id', async (req, res) => {
   const updateResults = await knex('titles')
     .where({ id: req.params.id })
     .update({
-      name: req.params.name
+      name: req.query.name
     })
     .returning('*')
     .catch((err) => {

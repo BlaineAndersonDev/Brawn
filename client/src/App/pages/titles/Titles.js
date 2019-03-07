@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import DisplayTitle from './DisplayTitle.js';
 import CreateTitle from './CreateTitle.js';
+import EditTitle from './EditTitle.js';
 
 class Titles extends Component {
   // Initialize the state
@@ -10,6 +11,7 @@ class Titles extends Component {
     this.state = {
       titles: [],
       showResults: false,
+      showTitleMenu: false
     };
   }
 
@@ -35,11 +37,33 @@ class Titles extends Component {
     this.setState({ titles: results })
   }
 
-  render() {
-    let displayTitles = null;
+  onTitleMenuClick = () => {
+    if (this.state.showTitleMenu) {
+      this.setState({ showTitleMenu: false });
+    } else {
+      this.setState({ showTitleMenu: true })
+    };
+  }
 
+  render() {
+    let editMenu = null;
+    if (this.state.showTitleMenu) {
+      editMenu = <div><EditTitle titleInfo={this.props.titleInfo}/> - Delete </div>
+    } else {
+      editMenu = null
+    }
+
+    let displayTitles = null;
     if (this.state.showResults) {
-      displayTitles = this.state.titles.map((item) => <DisplayTitle key={item.id} titleInfo={item} />
+      displayTitles = this.state.titles.map((item) =>
+        <DisplayTitle
+          key={item.id}
+          titleInfo={item}
+          onTitleMenuClick={this.onTitleMenuClick}
+          showTitleMenu={this.state.showTitleMenu}
+          editMenu={editMenu}
+
+        />
       )
     } else {
       displayTitles = null
