@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import DisplayTitle from './DisplayTitle.js';
 import CreateTitle from './CreateTitle.js';
-import EditTitle from './EditTitle.js';
 
 class Titles extends Component {
   // Initialize the state
@@ -11,7 +10,8 @@ class Titles extends Component {
     this.state = {
       titles: [],
       showResults: false,
-      showTitleMenu: false
+      editMenuActive: false,
+      selectedTitle: 1,
     };
   }
 
@@ -37,32 +37,21 @@ class Titles extends Component {
     this.setState({ titles: results })
   }
 
-  onTitleMenuClick = () => {
-    if (this.state.showTitleMenu) {
-      this.setState({ showTitleMenu: false });
-    } else {
-      this.setState({ showTitleMenu: true })
-    };
+  toggleMenu = (event) => {
+    // console.log(event.currentTarget.dataset.id)
+    this.state.editMenuActive ? this.setState({ editMenuActive: false }) : this.setState({ editMenuActive: true })
   }
 
   render() {
-    let editMenu = null;
-    if (this.state.showTitleMenu) {
-      editMenu = <div><EditTitle titleInfo={this.props.titleInfo}/> - Delete </div>
-    } else {
-      editMenu = null
-    }
 
     let displayTitles = null;
     if (this.state.showResults) {
       displayTitles = this.state.titles.map((item) =>
         <DisplayTitle
-          key={item.id}
-          titleInfo={item}
-          onTitleMenuClick={this.onTitleMenuClick}
-          showTitleMenu={this.state.showTitleMenu}
-          editMenu={editMenu}
-
+          key={item.id} // Required identifier.
+          titleInfo={item} // Info Object.
+          toggleMenu={this.toggleMenu} // editMenuActive toggle function.
+          editMenuActive={this.state.editMenuActive} // editMenuActive state.
         />
       )
     } else {

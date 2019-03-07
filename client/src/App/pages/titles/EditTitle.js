@@ -37,11 +37,10 @@ class EditTitle extends Component {
     });
   }
 
-
-
   render() {
-    return (
-      <div>
+    let editForm = null;
+    if (this.props.editMenuActive) {
+      editForm = (
         <form onSubmit={this.updateTitle}>
           <label>
             Edit Name:
@@ -49,6 +48,14 @@ class EditTitle extends Component {
           </label>
           <input type="submit" value="Submit" />
         </form>
+      )
+    } else {
+      editForm = null
+    }
+
+    return (
+      <div>
+      {editForm}
       </div>
     );
   }
