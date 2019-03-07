@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-axios.defaults.withCredentials = true;
 
 class CreateTitle extends Component {
   constructor(props){
@@ -15,25 +14,23 @@ class CreateTitle extends Component {
     this.setState({nameValue: event.target.value});
   }
 
-  // createTitle = (event) => {
-  //   event.preventDefault();
-  //   console.log(this.state.nameValue)
-  //   axios.post(`api/example/titles`, {
-  //     name: this.state.nameValue
-  //     })
-  //     .catch(error => console.log(error))
-  //     .then(res => {
-  //       console.log(JSON.stringify(res));
-  //       console.log(JSON.stringify(res.data));
-  //     })
-  //   }
-
   createTitle = (event) => {
-    axios.post(`/api/example/titles`, null, { params: {
-      name: this.state.nameValue
-    }})
-    .then(response => response.status)
-    .catch(err => console.warn(err));
+    event.preventDefault();
+    axios.post(`/api/example/titles`, null, {
+      params: {
+        name: this.state.nameValue
+      }
+    })
+    .catch(err => {
+      console.warn(err);
+    })
+    .then(res => {
+      console.log(JSON.stringify(res));
+      console.log(JSON.stringify(res.status));
+      console.log(JSON.stringify(res.data));
+      this.setState({nameValue: ''});
+      // Add some kind on 'Creation Complete' Block.
+    });
   }
 
   render() {

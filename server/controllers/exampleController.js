@@ -95,12 +95,10 @@ router.get('/titles', async (req, res) => {
 // POST (Create):
 router.post('/titles', async (req, res) => {
   console.log(' >>> Entered Route POST `/api/example/titles`')
-  console.log(' Params: ' + Object.keys(req.params))
   console.log(' Query: ' + Object.keys(req.query))
   const createResults = await knex('titles')
     .insert({
       name: req.query.name
-      // name: req.query.name // Works in Postman
     })
     .returning('*')
     .catch((err) => {
@@ -111,15 +109,8 @@ router.post('/titles', async (req, res) => {
 // PUT (Update):
 router.put('/titles/:id', async (req, res) => {
   console.log(' >>> Entered Route PUT `/api/example/titles`')
-  console.log(' @@@ : ' + req)
-  console.log(' @@@ : ' + Object.keys(req))
-  console.log(' !!! : ' + req.params.id)
-  console.log(' !!! : ' + req.params.name)
-  console.log(' !!! : ' + Object.keys(req.params))
-  // console.log(' *** : ' + req.body)
-  // console.log(' *** : ' + Object.keys(req.body))
-  console.log(' $$$ : ' + req.query)
-  console.log(' $$$ : ' + Object.keys(req.query))
+  console.log(' Params: ' + Object.keys(req.params))
+  console.log(' Query: ' + Object.keys(req.query))
   const updateResults = await knex('titles')
     .where({ id: req.params.id })
     .update({
@@ -134,6 +125,7 @@ router.put('/titles/:id', async (req, res) => {
 // DELETE (Delete):
 router.delete('/titles', async (req, res) => {
   console.log(' >>> Entered Route DELETE `/api/example/titles`')
+  console.log(' Params: ' + Object.keys(req.params))
   const deleteResults = await knex('titles')
     .where({ id: req.query.id })
     .del()
@@ -142,22 +134,6 @@ router.delete('/titles', async (req, res) => {
     });
   return res.json(`Title Id ${req.query.id} Deleted Succussfully!`);
 });
-
-router.post('/fuck', cors(), async (req, res) => {
-  console.log(' REQ: ' + req)
-  console.log(' REQ: ' + Object.keys(req))
-  console.log(' HEADERS: ' + req.headers)
-  console.log(' HEADERS: ' + Object.keys(req.headers))
-  console.log(' PARAMS: ' + req.params)
-  console.log(' PARAMS: ' + Object.keys(req.params))
-  console.log(' QUERY: ' + req.query)
-  console.log(' QUERY: ' + Object.keys(req.query))
-  console.log(' QUERY: ' + req.query)
-  console.log("MADE IT")
-  res.send("Boom");
-});
-
-
 
 // Export routes to `./router.js`
 module.exports = router;
