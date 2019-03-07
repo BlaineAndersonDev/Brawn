@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import DisplayTitle from './DisplayTitle.js';
+import CreateTitle from './CreateTitle.js';
 
 class Titles extends Component {
   // Initialize the state
@@ -47,6 +48,7 @@ class Titles extends Component {
     return (
       <div className="App">
         <h1>Titles</h1>
+        <CreateTitle />
         <h4>An example of CRUD application in both Frontend & Backend!</h4>
         <input type="submit" value="Get Titles" onClick={this.onClick} />
         {displayTitles}

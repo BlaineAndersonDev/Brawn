@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import EditTitle from './EditTitle.js';
 
 class DisplayTitle extends Component {
   constructor(props){
@@ -20,7 +21,8 @@ class DisplayTitle extends Component {
     let menu = null;
 
     if (this.state.showMenu) {
-      menu = <p> Edit - Delete </p>
+      menu = <div>
+      <EditTitle titleInfo={this.props.titleInfo}/> - Delete </div>
     } else {
       menu = null
     };

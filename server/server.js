@@ -2,17 +2,21 @@ import bodyParser from 'body-parser';
 import express from 'express';
 import path from 'path';
 import knex from './knexconfig.js';
+import cors from 'cors';
 
 // Create the app using express.
 const app = express();
+
+
+app.use(cors())
 
 // 'Import' & 'Mount' the router into the app.
 // I.E. `http://localhost:????/api/...`.
 app.use('/api', require('./router.js'));
 
 // Allows express to Parse `request.body`.
-app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
 
 // Set the API's internal port.
 // I.E. `http://localhost:3001`.
