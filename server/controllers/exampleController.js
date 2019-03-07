@@ -95,9 +95,12 @@ router.get('/titles', async (req, res) => {
 // POST (Create):
 router.post('/titles', async (req, res) => {
   console.log(' >>> Entered Route POST `/api/example/titles`')
+  console.log(' Params: ' + Object.keys(req.params))
+  console.log(' Query: ' + Object.keys(req.query))
   const createResults = await knex('titles')
     .insert({
-      name: 'LOLZ'
+      name: req.query.name
+      // name: req.query.name // Works in Postman
     })
     .returning('*')
     .catch((err) => {

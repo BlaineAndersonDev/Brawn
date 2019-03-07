@@ -15,18 +15,26 @@ class CreateTitle extends Component {
     this.setState({nameValue: event.target.value});
   }
 
+  // createTitle = (event) => {
+  //   event.preventDefault();
+  //   console.log(this.state.nameValue)
+  //   axios.post(`api/example/titles`, {
+  //     name: this.state.nameValue
+  //     })
+  //     .catch(error => console.log(error))
+  //     .then(res => {
+  //       console.log(JSON.stringify(res));
+  //       console.log(JSON.stringify(res.data));
+  //     })
+  //   }
+
   createTitle = (event) => {
-    event.preventDefault();
-    const user = {
+    axios.post(`/api/example/titles`, null, { params: {
       name: this.state.nameValue
-    };
-    return axios.post(`api/example/titles`, { user })
-      .catch(error => console.log(error))
-      .then(res => {
-        console.log(res);
-        console.log(res.data);
-      })
-    }
+    }})
+    .then(response => response.status)
+    .catch(err => console.warn(err));
+  }
 
   render() {
     return (
