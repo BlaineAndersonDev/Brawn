@@ -44,4 +44,16 @@ router.put('/update/:id', async (req, res) => {
   return res.json(updateResults);
 });
 
+router.delete('/delete/:id', async (req, res) => {
+  console.log(' >>> Entered Route DELETE `/api/jokes/delete`')
+  console.log(' Params: ' + Object.keys(req.params))
+  const deleteResults = await knex('jokes')
+    .where({ id: req.params.id })
+    .del()
+    .catch((err) => {
+      console.log(err)
+    });
+    return res.json(deleteResults);
+});
+
 module.exports = router;

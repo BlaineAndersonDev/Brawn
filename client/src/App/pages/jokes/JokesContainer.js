@@ -12,8 +12,12 @@ class Jokes extends Component {
     };
   }
 
-  componentDidMount() {
-    this.getJokes();
+  async componentDidMount() {
+    try {
+      const response = await this.getJokes();
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   consoleJokes = () => {
@@ -22,14 +26,13 @@ class Jokes extends Component {
 
   getJokes = () => {
     axios.get('/api/jokes/')
+    .catch(error => console.log(error))
     .then(response => {
       this.setState({jokes: response.data})
     })
-    .catch(error => console.log(error))
   }
 
   handleCreateJoke = (author, body) => {
-    // event.preventDefault();
     axios.post(`/api/jokes/create`, null, {
       params: {
         author: author,
@@ -44,6 +47,7 @@ class Jokes extends Component {
       console.log(JSON.stringify(res.status));
       console.log(JSON.stringify(res.data));
       // Add some kind on 'Creation Complete' Block.
+      this.getJokes();
     });
   }
 
@@ -62,13 +66,23 @@ class Jokes extends Component {
       console.log(JSON.stringify(res.status));
       console.log(JSON.stringify(res.data));
       // Add some kind on 'Creation Complete' Block.
+      this.getJokes();
     });
   }
 
-  deleteJoke = () => {
-
+  handleDeleteJoke = (id) => {
+    axios.delete(`/api/jokes/delete/${id}`, null)
+    .catch(err => {
+      console.warn(err);
+    })
+    .then(res => {
+      console.log(JSON.stringify(res));
+      console.log(JSON.stringify(res.status));
+      console.log(JSON.stringify(res.data));
+      // Add some kind on 'Creation Complete' Block.
+      this.getJokes();
+    });
   }
-
 
   render() {
     return (
@@ -88,6 +102,7 @@ class Jokes extends Component {
                 key={joke.id}
                 joke={joke}
                 handleUpdateJoke={this.handleUpdateJoke}
+                handleDeleteJoke={this.handleDeleteJoke}
               />
             )
           })}

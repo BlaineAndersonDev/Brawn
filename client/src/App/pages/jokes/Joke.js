@@ -1,16 +1,26 @@
 import React, { Component } from 'react';
 import EditJoke from './EditJoke.js';
+import DeleteJoke from './DeleteJoke.js';
 
 class Joke extends Component {
   constructor(props){
     super(props);
     this.state = {
       toggleEditMenu: false,
+      toggleDeleteMenu: false,
     };
   }
 
   onEditMenuClick = () => {
     this.setState({toggleEditMenu: true})
+  }
+
+  onDeleteMenuClick = () => {
+    this.setState({toggleDeleteMenu: true})
+  }
+
+  handleDenyDeleteJoke = () => {
+    this.setState({toggleDeleteMenu: false})
   }
 
   render() {
@@ -29,13 +39,29 @@ class Joke extends Component {
       );
     }
 
+    let deleteMenu = null;
+    if (this.state.toggleDeleteMenu) {
+      deleteMenu = (
+        <DeleteJoke
+          key={this.props.joke.id}
+          joke={this.props.joke}
+          handleDeleteJoke={this.props.handleDeleteJoke}
+          handleDenyDeleteJoke={this.handleDenyDeleteJoke}
+        />
+      )
+    } else {
+      deleteMenu = (
+        <button onClick={this.onDeleteMenuClick}>Delete Joke</button>
+      );
+    }
+
     return (
       <div>
         <p>{this.props.joke.id}</p>
         <p>{this.props.joke.author}</p>
         <p>{this.props.joke.body}</p>
         {editMenu}
-        <button>Delete Joke</button>
+        {deleteMenu}
       </div>
     );
   }
