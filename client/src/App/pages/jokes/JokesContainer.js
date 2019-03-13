@@ -4,7 +4,6 @@ import Joke from './Joke.js';
 import CreateJoke from './CreateJoke.js';
 import {Image} from 'cloudinary-react';
 // import {Image, Video, Transformation, CloudinaryContext} from 'cloudinary-react';
-// import Wigit from './Wigit.js'
 
 class Jokes extends Component {
   // Initialize the state
@@ -108,8 +107,6 @@ class Jokes extends Component {
         <div>
           <CreateJoke handleCreateJoke={this.handleCreateJoke} />
         </div>
-
-        <button onClick={this.consoleJokes}>CLICK MEEEEEE</button>
 
         <div>
           {this.state.jokes.map((joke) => {
