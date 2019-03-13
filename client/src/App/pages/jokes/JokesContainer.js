@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Joke from './Joke.js';
 import CreateJoke from './CreateJoke.js';
+import {Image} from 'cloudinary-react';
+// import {Image, Video, Transformation, CloudinaryContext} from 'cloudinary-react';
+// import Wigit from './Wigit.js'
 
 class Jokes extends Component {
   // Initialize the state
@@ -9,12 +12,15 @@ class Jokes extends Component {
     super(props);
     this.state = {
       jokes: [],
+      showWigit: false,
+      uploadedFileCloudinaryUrl: '',
+      uploadedFile: ''
     };
   }
 
   async componentDidMount() {
     try {
-      const response = await this.getJokes();
+      await this.getJokes();
     } catch (error) {
       console.log(error)
     }
@@ -84,9 +90,19 @@ class Jokes extends Component {
     });
   }
 
+  handleUpload = () => {
+    window.cloudinary.openUploadWidget(
+      { cloud_name: 'BrawnImages', upload_preset: 'tester', tags: ['blaine'] },
+      function(error, result) {
+        console.log(result);
+      }
+  )}
+
   render() {
     return (
       <div>
+      <button onClick={this.handleUpload}> Upload Images </button>
+
         <h1>JOKES</h1>
 
         <div>
@@ -106,6 +122,11 @@ class Jokes extends Component {
               />
             )
           })}
+        </div>
+
+        <div>
+          <h1>Hello, world!</h1>
+          <Image cloudName="BrawnImages" publicId="samples/animals/kitten-playing" width="300" crop="scale"/>
         </div>
 
 

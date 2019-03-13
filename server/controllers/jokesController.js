@@ -56,4 +56,14 @@ router.delete('/delete/:id', async (req, res) => {
     return res.json(deleteResults);
 });
 
+router.get('/wigit', async (req, res) => {
+  console.log(' >>> Entered Route GET `/api/jokes/wigit`')
+  const readResults = await knex('jokes')
+    .select('*')
+    .catch((err) => {
+      console.log(err)
+    });
+  return res.send(readResults);
+});
+
 module.exports = router;
