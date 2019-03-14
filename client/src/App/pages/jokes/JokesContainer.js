@@ -41,22 +41,6 @@ class Jokes extends Component {
     })
   }
 
-  handleCreateJoke = (author, body, publicId) => {
-    axios.post(`/api/jokes/create`, null, {
-      params: {
-        author: author,
-        body: body,
-        imagePublicId: publicId
-      }
-    })
-    .catch(err => {
-      console.warn(err);
-    })
-    .then(res => {
-      this.getJokes();
-    });
-  }
-
   handleUpdateJoke = (id, author, body) => {
     axios.put(`/api/jokes/update/${id}`, null, {
       params: {
@@ -129,6 +113,7 @@ class Jokes extends Component {
       <div>
 
         <h1>JOKES</h1>
+        <button onClick={this.handleImageUpload}> Upload Images </button>
 
         <div>
           <h3>Delete a Joke by PublicId</h3>
