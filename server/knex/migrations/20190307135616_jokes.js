@@ -3,7 +3,8 @@ exports.up = function (knex, Promise) {
     knex.schema.createTable('jokes', table => {
       table.increments('id').primary()
       table.string('author')
-      table.string('body', 1000) // 1000 sets varchar limit to 1000.
+      table.string('body', 1500)
+      table.string('imagePublicId')
     })
   ])
 }

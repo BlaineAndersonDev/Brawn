@@ -25,7 +25,6 @@ class Jokes extends Component {
 
   async componentDidMount() {
     try {
-      console.log(process.env.TEST_DATA)
       await this.getJokes();
     } catch (error) {
       console.log(error)

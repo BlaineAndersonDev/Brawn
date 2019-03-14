@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
-import EditJoke from './EditJoke.js';
-import DeleteJoke from './DeleteJoke.js';
-import {Image} from 'cloudinary-react';
 
-class Joke extends Component {
+class ImageJoke extends Component {
   constructor(props){
     super(props);
     this.state = {
@@ -25,15 +22,6 @@ class Joke extends Component {
   }
 
   render() {
-    let jokeImage = null;
-    if (this.props.joke.imagePublicId) {
-      jokeImage = (
-        <Image cloudName="BrawnImages" publicId={this.props.joke.imagePublicId} width="300" height="300" crop="scale"/>
-      )
-    } else {
-      jokeImage = null;
-    }
-
     let editMenu = null;
     if (this.state.toggleEditMenu) {
       editMenu = (
@@ -70,7 +58,6 @@ class Joke extends Component {
         <p>{this.props.joke.id}</p>
         <p>{this.props.joke.author}</p>
         <p>{this.props.joke.body}</p>
-        {jokeImage}
         {editMenu}
         {deleteMenu}
       </div>
@@ -78,4 +65,4 @@ class Joke extends Component {
   }
 }
 
-export default Joke;
+export default ImageJoke;
