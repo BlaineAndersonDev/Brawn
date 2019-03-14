@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Joke from './Joke.js';
 import CreateJoke from './CreateJoke.js';
+import DeleteJokeImage from './DeleteJokeImage.js';
 import {Image} from 'cloudinary-react';
 
 
@@ -15,10 +16,7 @@ class Jokes extends Component {
     super(props);
     this.state = {
       jokes: [],
-      showWigit: false,
-      uploadedFileCloudinaryUrl: '',
-      uploadedFile: '',
-      newImagePublicId: null,
+      imagePublicIds: null,
       cloudinaryPublicIdChange: ''
     };
   }
@@ -43,21 +41,18 @@ class Jokes extends Component {
     })
   }
 
-  handleCreateJoke = (author, body) => {
+  handleCreateJoke = (author, body, publicId) => {
     axios.post(`/api/jokes/create`, null, {
       params: {
         author: author,
-        body: body
+        body: body,
+        imagePublicId: publicId
       }
     })
     .catch(err => {
       console.warn(err);
     })
     .then(res => {
-      console.log(JSON.stringify(res));
-      console.log(JSON.stringify(res.status));
-      console.log(JSON.stringify(res.data));
-      // Add some kind on 'Creation Complete' Block.
       this.getJokes();
     });
   }
@@ -73,10 +68,6 @@ class Jokes extends Component {
       console.warn(err);
     })
     .then(res => {
-      console.log(JSON.stringify(res));
-      console.log(JSON.stringify(res.status));
-      console.log(JSON.stringify(res.data));
-      // Add some kind on 'Creation Complete' Block.
       this.getJokes();
     });
   }
@@ -89,20 +80,17 @@ class Jokes extends Component {
       console.warn(err);
     })
     .then(res => {
-      console.log(JSON.stringify(res));
-      console.log(JSON.stringify(res.status));
-      console.log(JSON.stringify(res.data));
-      // Add some kind on 'Creation Complete' Block.
       this.getJokes();
     });
     this.handleImageDelete(jokeImagePublicId)
   }
 
   handleImageUpload = () => {
-    if (this.state.newImagePublicId !== null) {
-      console.log('this.state.newImagePublicId: NOT NULL!')
-      // SETUP: Remove previous image from DB.
-      this.setState({newImagePublicId: null})
+    // If this.state.imagePublicId is not null, then delete the image based on the publicId provided as the user has changed the image again.
+    if (this.state.imagePublicId !== null) {
+      console.log('Deleting PublicId: ' + this.state.imagePublicId)
+      this.handleImageDelete(this.state.imagePublicId)
+      this.setState({imagePublicId: null})
     }
     window.cloudinary.openUploadWidget(
       {
@@ -111,8 +99,9 @@ class Jokes extends Component {
         tags: ['blaine']
       }, (error, result) => {
         if (result && result.event === "success") {
-          this.setState({newImagePublicId: result.info.public_id})
-          console.log('Image Upload Successful: ' + this.state.newImagePublicId)
+          this.setState({imagePublicId: result.info.public_id})
+          console.log('Image Upload Result: ' + JSON.stringify(result))
+          console.log('Image Upload Successful: ' + this.state.imagePublicId)
         }
       }
     );
@@ -128,39 +117,37 @@ class Jokes extends Component {
       console.warn(err);
     })
     .then(res => {
-      console.log(JSON.stringify(res));
-      console.log(JSON.stringify(res.status));
-      console.log(JSON.stringify(res.data));
     });
   };
 
   handleImageGet = () => {};
   handleImageGetAll = () => {};
 
-  handleCloudinaryPublicIdChange = (event) => {
-    this.setState({cloudinaryPublicIdChange: event.target.value})
-  }
 
   render() {
     return (
       <div>
-      <button onClick={this.handleUpload}> Upload Images </button>
-
-      <form onSubmit={this.handleImageDelete}>
-        <label>
-          cloudinaryPublicId:
-          <input type="text" value={this.state.cloudinaryPublicIdChange} onChange={this.handleCloudinaryPublicIdChange} />
-        </label>
-        <input type="submit" value="Submit" />
-      </form>
 
         <h1>JOKES</h1>
 
         <div>
-          <CreateJoke handleCreateJoke={this.handleCreateJoke} />
+          <h3>Delete a Joke by PublicId</h3>
+          <DeleteJokeImage
+            handleImageDelete={this.handleImageDelete}
+          />
         </div>
 
         <div>
+          <h3>Create a Joke</h3>
+          <CreateJoke
+            handleCreateJoke={this.handleCreateJoke}
+            handleImageUpload={this.handleImageUpload}
+            imagePublicId={this.state.imagePublicId}
+          />
+        </div>
+
+        <div>
+          <h3>Current Jokes</h3>
           {this.state.jokes.map((joke) => {
             return (
               <Joke

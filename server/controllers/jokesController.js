@@ -25,7 +25,8 @@ router.post('/create', async (req, res) => {
   const createResults = await knex('jokes')
     .insert({
       author: req.query.author,
-      body: req.query.body
+      body: req.query.body,
+      imagePublicId: req.query.imagePublicId
     })
     .returning('*')
     .catch((err) => {
@@ -67,6 +68,7 @@ router.post('/cloudinaryDelete', async (req, res) => {
   console.log(' >>> Entered Route GET `/api/jokes/cloudinaryDelete`')
   console.log(' Params: ' + Object.keys(req.params))
   console.log(' Query: ' + Object.keys(req.query))
+  console.log(' Query: ' + req.query.publicId)
   const result = cloudinary.v2.uploader.destroy(
     req.query.publicId, (error, result) => {
       if (error) {

@@ -6,6 +6,7 @@ class CreateJoke extends Component {
     this.state = {
       newAuthor: '',
       newBody: '',
+      newimagePublicId: '',
     };
   }
 
@@ -18,7 +19,7 @@ class CreateJoke extends Component {
   }
 
   handleSubmit = (event) => {
-    this.props.handleCreateJoke(this.state.newAuthor, this.state.newBody)
+    this.props.handleCreateJoke(this.state.newAuthor, this.state.newBody, this.state.newimagePublicId)
   }
 
   render() {
@@ -33,6 +34,7 @@ class CreateJoke extends Component {
             Body:
             <input type="textArea" value={this.state.newBody} onChange={this.handleBodyChange} />
           </label>
+          <button onClick={this.props.handleImageUpload}> Upload Images </button>
           <input type="submit" value="Submit" />
         </form>
       </div>
