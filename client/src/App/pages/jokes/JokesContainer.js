@@ -81,8 +81,10 @@ class Jokes extends Component {
     });
   }
 
-  handleDeleteJoke = (id) => {
-    axios.delete(`/api/jokes/delete/${id}`, null)
+  handleDeleteJoke = (joke) => {
+    const jokeId = joke.id;
+    const jokeImagePublicId = joke.imagePublicId;
+    axios.delete(`/api/jokes/delete/${jokeId}`, null)
     .catch(err => {
       console.warn(err);
     })
@@ -93,6 +95,7 @@ class Jokes extends Component {
       // Add some kind on 'Creation Complete' Block.
       this.getJokes();
     });
+    this.handleImageDelete(jokeImagePublicId)
   }
 
   handleImageUpload = () => {
@@ -115,21 +118,20 @@ class Jokes extends Component {
     );
   };
 
-  handleImageDelete = (event) => {
-    event.preventDefault()
+  handleImageDelete = (jokeImagePublicId) => {
     axios.post(`/api/jokes/cloudinaryDelete`, null, {
       params: {
-        publicId: this.state.cloudinaryPublicIdChange
+        publicId: jokeImagePublicId
       }
     })
     .catch(err => {
       console.warn(err);
     })
-    // .then(res => {
-    //   // console.log(JSON.stringify(res));
-    //   // console.log(JSON.stringify(res.status));
-    //   // console.log(JSON.stringify(res.data));
-    // });
+    .then(res => {
+      console.log(JSON.stringify(res));
+      console.log(JSON.stringify(res.status));
+      console.log(JSON.stringify(res.data));
+    });
   };
 
   handleImageGet = () => {};

@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class DeleteJoke extends Component {
 
   handleConfirm = () => {
-    this.props.handleDeleteJoke(this.props.joke.id)
+    this.props.handleDeleteJoke(this.props.joke)
   }
 
   handleDeny = (event) => {
