@@ -20,6 +20,10 @@ class Joke extends Component {
     this.setState({toggleDeleteMenu: true})
   }
 
+  handleCancelEditJoke = () => {
+    this.setState({toggleEditMenu: false})
+  }
+
   handleDenyDeleteJoke = () => {
     this.setState({toggleDeleteMenu: false})
   }
@@ -41,6 +45,7 @@ class Joke extends Component {
           key={this.props.joke.id}
           joke={this.props.joke}
           handleUpdateJoke={this.props.handleUpdateJoke}
+          handleCancelEditJoke={this.handleCancelEditJoke}
         />
       )
     } else {

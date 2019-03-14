@@ -26,6 +26,11 @@ class EditJoke extends Component {
     this.props.handleUpdateJoke(this.props.joke.id, this.state.newAuthor, this.state.newBody)
   }
 
+  handleCancel = (event) => {
+    event.preventDefault();
+    this.props.handleCancelEditJoke();
+  }
+
   render() {
     return (
       <div>
@@ -39,6 +44,7 @@ class EditJoke extends Component {
             <input type="textArea" value={this.state.newBody} onChange={this.handleBodyChange} />
           </label>
           <input type="submit" value="Submit" />
+          <button onClick={this.handleCancel}>Cancel</button>
         </form>
       </div>
     );

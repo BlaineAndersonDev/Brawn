@@ -75,21 +75,21 @@ class Jokes extends Component {
 
         <h1>JOKES</h1>
 
-        <div>
+        <div style={{backgroundColor: "#ccffe6"}}>
           <h3>Delete a Joke by PublicId</h3>
           <DeleteJokeImage
             handleImageDelete={this.handleImageDelete}
           />
         </div>
 
-        <div>
-          <h3>Create a Joke</h3>
+        <div style={{backgroundColor: "#ffccff"}}>
+          <h3>Create a Joke (Complete)</h3>
           <CreateJoke
             getJokes={this.getJokes}
           />
         </div>
 
-        <div>
+        <div style={{backgroundColor: "#ccccff"}}>
           <h3>Current Jokes</h3>
           {this.state.jokes.map((joke) => {
             return (
@@ -103,7 +103,7 @@ class Jokes extends Component {
           })}
         </div>
 
-        <div>
+        <div style={{backgroundColor: "#ff9999"}}>
           <h1>Hello, world!</h1>
           <Image cloudName="BrawnImages" publicId="samples/animals/kitten-playing" width="300" crop="scale"/>
         </div>
