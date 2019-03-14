@@ -62,8 +62,6 @@ class CreateJoke extends Component {
     event.preventDefault()
   };
 
-
-
   // Delete image from cloudinary if user changes image mid-creation.
   handleImageDelete = (jokeImagePublicId) => {
     axios.post(`/api/jokes/cloudinaryDelete`, null, {
@@ -98,7 +96,7 @@ class CreateJoke extends Component {
         newimagePublicId: null
       })
       // Refresh Jokes Feed.
-      this.props.getJokes();
+      this.props.refreshJokes();
     });
   }
 

@@ -4,10 +4,6 @@ import Joke from './Joke.js';
 import CreateJoke from './CreateJoke.js';
 import DeleteJokeImage from './DeleteJokeImage.js';
 import {Image} from 'cloudinary-react';
-
-
-
-// import cors from 'cors';
 // import {Image, Video, Transformation, CloudinaryContext} from 'cloudinary-react';
 
 class Jokes extends Component {
@@ -16,14 +12,12 @@ class Jokes extends Component {
     super(props);
     this.state = {
       jokes: [],
-      imagePublicIds: null,
-      cloudinaryPublicIdChange: ''
     };
   }
 
   async componentDidMount() {
     try {
-      await this.getJokes();
+      await this.refreshJokes();
     } catch (error) {
       console.log(error)
     }
@@ -33,40 +27,12 @@ class Jokes extends Component {
     console.log(this.state.jokes)
   }
 
-  getJokes = () => {
+  refreshJokes = () => {
     axios.get('/api/jokes/')
     .catch(error => console.log(error))
     .then(response => {
       this.setState({jokes: response.data})
     })
-  }
-
-  handleUpdateJoke = (id, author, body) => {
-    axios.put(`/api/jokes/update/${id}`, null, {
-      params: {
-        author: author,
-        body: body
-      }
-    })
-    .catch(err => {
-      console.warn(err);
-    })
-    .then(res => {
-      this.getJokes();
-    });
-  }
-
-  handleDeleteJoke = (joke) => {
-    const jokeId = joke.id;
-    const jokeImagePublicId = joke.imagePublicId;
-    axios.delete(`/api/jokes/delete/${jokeId}`, null)
-    .catch(err => {
-      console.warn(err);
-    })
-    .then(res => {
-      this.getJokes();
-    });
-    this.handleImageDelete(jokeImagePublicId)
   }
 
   render() {
@@ -85,7 +51,7 @@ class Jokes extends Component {
         <div style={{backgroundColor: "#ffccff"}}>
           <h3>Create a Joke (Complete)</h3>
           <CreateJoke
-            getJokes={this.getJokes}
+            refreshJokes={this.refreshJokes}
           />
         </div>
 
@@ -96,8 +62,7 @@ class Jokes extends Component {
               <Joke
                 key={joke.id}
                 joke={joke}
-                handleUpdateJoke={this.handleUpdateJoke}
-                handleDeleteJoke={this.handleDeleteJoke}
+                refreshJokes={this.refreshJokes}
               />
             )
           })}

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import EditJoke from './EditJoke.js';
 import DeleteJoke from './DeleteJoke.js';
+import axios from 'axios';
 import {Image} from 'cloudinary-react';
 
 class Joke extends Component {
@@ -28,6 +29,49 @@ class Joke extends Component {
     this.setState({toggleDeleteMenu: false})
   }
 
+  handleUpdateJoke = (id, author, body, publicId) => {
+    axios.put(`/api/jokes/update/${id}`, null, {
+      params: {
+        author: author,
+        body: body,
+        imagePublicId: publicId
+      }
+    })
+    .catch(err => {
+      console.warn(err);
+    })
+    .then(res => {
+      this.props.refreshJokes();
+    });
+  }
+
+  handleDeleteJoke = (joke) => {
+    const jokeId = joke.id;
+    const jokeImagePublicId = joke.imagePublicId;
+    axios.delete(`/api/jokes/delete/${jokeId}`, null)
+    .catch(err => {
+      console.warn(err);
+    })
+    .then(res => {
+      this.props.refreshJokes();
+    });
+    this.handleImageDelete(jokeImagePublicId)
+  }
+
+  // Delete image from cloudinary if user changes image mid-creation.
+  handleImageDelete = (jokeImagePublicId) => {
+    axios.post(`/api/jokes/cloudinaryDelete`, null, {
+      params: {
+        publicId: jokeImagePublicId
+      }
+    })
+    .catch(err => {
+      console.warn(err);
+    })
+    .then(res => {
+    });
+  };
+
   render() {
     let jokeImage = null;
     if (this.props.joke.imagePublicId) {
@@ -44,8 +88,9 @@ class Joke extends Component {
         <EditJoke
           key={this.props.joke.id}
           joke={this.props.joke}
-          handleUpdateJoke={this.props.handleUpdateJoke}
+          handleUpdateJoke={this.handleUpdateJoke}
           handleCancelEditJoke={this.handleCancelEditJoke}
+          refreshJokes={this.props.refreshJokes}
         />
       )
     } else {
@@ -60,7 +105,7 @@ class Joke extends Component {
         <DeleteJoke
           key={this.props.joke.id}
           joke={this.props.joke}
-          handleDeleteJoke={this.props.handleDeleteJoke}
+          handleDeleteJoke={this.handleDeleteJoke}
           handleDenyDeleteJoke={this.handleDenyDeleteJoke}
         />
       )

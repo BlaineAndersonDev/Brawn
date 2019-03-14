@@ -43,7 +43,8 @@ router.put('/update/:id', async (req, res) => {
     .where({ id: req.params.id })
     .update({
       author: req.query.author,
-      body: req.query.body
+      body: req.query.body,
+      imagePublicId: req.query.imagePublicId
     })
     .returning('*')
     .catch((err) => {
@@ -70,7 +71,9 @@ router.post('/cloudinaryDelete', async (req, res) => {
   console.log(' Query: ' + Object.keys(req.query))
   console.log(' Query: ' + req.query.publicId)
   const result = cloudinary.v2.uploader.destroy(
-    req.query.publicId, (error, result) => {
+    req.query.publicId, {
+      invalidate: true
+    }, (error, result) => {
       if (error) {
         console.log('Error: ' + JSON.stringify(error))
       } else {
