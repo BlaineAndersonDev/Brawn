@@ -78,7 +78,7 @@ class CreateJoke extends Component {
     });
   };
 
-  // Create Function
+  // Create Function & Refresh Jokes
   handleCreateJoke = (author, body, publicId) => {
     axios.post(`/api/jokes/create`, null, {
       params: {
@@ -91,7 +91,7 @@ class CreateJoke extends Component {
       console.warn(err);
     })
     .then(res => {
-      this.getJokes();
+      this.props.getJokes();
     });
   }
 

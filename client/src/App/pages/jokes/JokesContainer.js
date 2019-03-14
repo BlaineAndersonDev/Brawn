@@ -69,51 +69,11 @@ class Jokes extends Component {
     this.handleImageDelete(jokeImagePublicId)
   }
 
-  handleImageUpload = () => {
-    // If this.state.imagePublicId is not null, then delete the image based on the publicId provided as the user has changed the image again.
-    if (this.state.imagePublicId !== null) {
-      console.log('Deleting PublicId: ' + this.state.imagePublicId)
-      this.handleImageDelete(this.state.imagePublicId)
-      this.setState({imagePublicId: null})
-    }
-    window.cloudinary.openUploadWidget(
-      {
-        cloud_name: 'BrawnImages',
-        upload_preset: 'tester',
-        tags: ['blaine']
-      }, (error, result) => {
-        if (result && result.event === "success") {
-          this.setState({imagePublicId: result.info.public_id})
-          console.log('Image Upload Result: ' + JSON.stringify(result))
-          console.log('Image Upload Successful: ' + this.state.imagePublicId)
-        }
-      }
-    );
-  };
-
-  handleImageDelete = (jokeImagePublicId) => {
-    axios.post(`/api/jokes/cloudinaryDelete`, null, {
-      params: {
-        publicId: jokeImagePublicId
-      }
-    })
-    .catch(err => {
-      console.warn(err);
-    })
-    .then(res => {
-    });
-  };
-
-  handleImageGet = () => {};
-  handleImageGetAll = () => {};
-
-
   render() {
     return (
       <div>
 
         <h1>JOKES</h1>
-        <button onClick={this.handleImageUpload}> Upload Images </button>
 
         <div>
           <h3>Delete a Joke by PublicId</h3>
@@ -125,9 +85,7 @@ class Jokes extends Component {
         <div>
           <h3>Create a Joke</h3>
           <CreateJoke
-            handleCreateJoke={this.handleCreateJoke}
-            handleImageUpload={this.handleImageUpload}
-            imagePublicId={this.state.imagePublicId}
+            getJokes={this.getJokes}
           />
         </div>
 
