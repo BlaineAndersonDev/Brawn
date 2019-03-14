@@ -10,6 +10,7 @@ class Joke extends Component {
     this.state = {
       toggleEditMenu: false,
       toggleDeleteMenu: false,
+      imageChange: null
     };
   }
 
@@ -27,6 +28,10 @@ class Joke extends Component {
 
   handleDenyDeleteJoke = () => {
     this.setState({toggleDeleteMenu: false})
+  }
+
+  handleImageChange = (imagePublicId) => {
+    this.setState({imageChange: imagePublicId})
   }
 
   handleUpdateJoke = (id, author, body, publicId) => {
@@ -74,12 +79,14 @@ class Joke extends Component {
 
   render() {
     let jokeImage = null;
-    if (this.props.joke.imagePublicId) {
+    if (this.state.imageChange) {
+      jokeImage = (
+        <Image cloudName="BrawnImages" publicId={this.state.imageChange} width="300" height="300" crop="scale"/>
+      )
+    } else {
       jokeImage = (
         <Image cloudName="BrawnImages" publicId={this.props.joke.imagePublicId} width="300" height="300" crop="scale"/>
       )
-    } else {
-      jokeImage = null;
     }
 
     let editMenu = null;
@@ -91,6 +98,7 @@ class Joke extends Component {
           handleUpdateJoke={this.handleUpdateJoke}
           handleCancelEditJoke={this.handleCancelEditJoke}
           refreshJokes={this.props.refreshJokes}
+          handleImageChange={this.handleImageChange}
         />
       )
     } else {

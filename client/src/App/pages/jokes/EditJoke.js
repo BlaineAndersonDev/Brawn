@@ -48,6 +48,7 @@ class EditJoke extends Component {
             this.handleImageDelete(this.state.newimagePublicId)
           }
           this.setState({newimagePublicId: result.info.public_id})
+          this.props.handleImageChange(this.state.newimagePublicId)
           widget.close({quiet: true});
         }
       }
