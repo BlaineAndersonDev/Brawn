@@ -91,6 +91,13 @@ class CreateJoke extends Component {
       console.warn(err);
     })
     .then(res => {
+      // Change states to blank for additional jokes.
+      this.setState({
+        newAuthor: '',
+        newBody: '',
+        newimagePublicId: null
+      })
+      // Refresh Jokes Feed.
       this.props.getJokes();
     });
   }
