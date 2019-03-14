@@ -44,7 +44,6 @@ class CreateJoke extends Component {
   handleImageUpload = (event) => {
     // If this.state.newimagePublicId is not null, then delete the image based on the publicId provided as the user has changed the image again.
     if (this.state.newimagePublicId !== null) {
-      console.log('Deleting PublicId: ' + this.state.newimagePublicId)
       this.handleImageDelete(this.state.newimagePublicId)
       this.setState({newimagePublicId: null})
     }
@@ -56,14 +55,14 @@ class CreateJoke extends Component {
       }, (error, result) => {
         if (result && result.event === "success") {
           this.setState({newimagePublicId: result.info.public_id})
-          console.log('Image Upload Result: ' + JSON.stringify(result))
-          console.log('Image Upload Successful: ' + this.state.newimagePublicId)
           widget.close({quiet: true});
         }
       }
     );
     event.preventDefault()
   };
+
+
 
   // Delete image from cloudinary if user changes image mid-creation.
   handleImageDelete = (jokeImagePublicId) => {
@@ -104,8 +103,19 @@ class CreateJoke extends Component {
   }
 
   render() {
+    let displayImage = null;
+    if (!this.state.newimagePublicId) {
+      displayImage = (
+        <Image cloudName="BrawnImages" publicId="sample" width="300" height="300" crop="scale"/>
+      )
+    } else {
+      displayImage = (
+        <Image cloudName="BrawnImages" publicId={this.state.newimagePublicId} width="300" height="300" crop="scale"/>
+      )
+    }
     return (
       <div id='createJokeContainer' className='container'>
+        <div>{displayImage}</div>
         <form onSubmit={this.handleEmptyFields}>
           <label>
             Author:
