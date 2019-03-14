@@ -33,7 +33,7 @@ class EditJoke extends Component {
 
   render() {
     return (
-      <div>
+      <div style={{backgroundColor: "#ffcc66"}}>
         <form onSubmit={this.handleSubmit}>
           <label>
             Author:

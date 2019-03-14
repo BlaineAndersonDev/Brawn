@@ -75,7 +75,7 @@ class Joke extends Component {
         <p>{this.props.joke.id}</p>
         <p>{this.props.joke.author}</p>
         <p>{this.props.joke.body}</p>
-        {jokeImage}
+        <div>{jokeImage}</div>
         {editMenu}
         {deleteMenu}
       </div>

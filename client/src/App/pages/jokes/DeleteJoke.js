@@ -12,7 +12,7 @@ class DeleteJoke extends Component {
 
   render() {
     return (
-      <div>
+      <div style={{backgroundColor: "#ccff66"}}>
         <h3>Are you sure you wish to delete this joke?</h3>
         <button onClick={this.handleConfirm}>Yes</button>
         <button onClick={this.handleDeny}>No</button>
