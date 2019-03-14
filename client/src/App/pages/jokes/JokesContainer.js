@@ -3,6 +3,7 @@ import axios from 'axios';
 import Joke from './Joke.js';
 import CreateJoke from './CreateJoke.js';
 import {Image} from 'cloudinary-react';
+import cors from 'cors';
 // import {Image, Video, Transformation, CloudinaryContext} from 'cloudinary-react';
 
 class Jokes extends Component {
@@ -13,7 +14,8 @@ class Jokes extends Component {
       jokes: [],
       showWigit: false,
       uploadedFileCloudinaryUrl: '',
-      uploadedFile: ''
+      uploadedFile: '',
+      newImagePublicId: 'null'
     };
   }
 
@@ -91,11 +93,20 @@ class Jokes extends Component {
 
   handleUpload = () => {
     window.cloudinary.openUploadWidget(
-      { cloud_name: 'BrawnImages', upload_preset: 'tester', tags: ['blaine'] },
-      function(error, result) {
-        console.log(result);
-      }
-  )}
+      {
+        cloud_name: 'BrawnImages',
+        upload_preset: 'tester',
+        tags: ['blaine']
+      }, (error, result) => {
+        if (result && result.event === "success") {
+          console.log(result);
+          console.log(result.info);
+          console.log(result.info.public_id);
+          this.setState({newImagePublicId: result.info.public_id})
+          console.log('State: ' + this.state.newImagePublicId);
+        }
+      });
+  }
 
   render() {
     return (
