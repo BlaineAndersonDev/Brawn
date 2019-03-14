@@ -26,6 +26,23 @@ class EditJoke extends Component {
     this.setState({newBody: event.target.value})
   }
 
+  // Prevent joke creation if any field is empty.
+  handleEmptyFields = (event) => {
+    event.preventDefault()
+    if (!this.state.newAuthor) { // State "newAuthor" is empty
+      alert("The Field 'Author' is empty! Cannot create Joke.")
+    }
+    else if (!this.state.newBody) { // State "newBody" is empty
+      alert("The Field 'Body' is empty! Cannot create Joke.")
+    }
+    // else if (!this.state.newimagePublicId) { // State "newimagePublicId" is empty
+    //   alert("No image attached! Cannot create Joke.")
+    // }
+    else { // All fields hold values
+      this.handleSubmit()
+    }
+  }
+
   handleSubmit = (event) => {
     this.props.handleUpdateJoke(this.props.joke.id, this.state.newAuthor, this.state.newBody, this.state.newimagePublicId)
   }
@@ -73,7 +90,7 @@ class EditJoke extends Component {
   render() {
     return (
       <div style={{backgroundColor: "#ffcc66"}}>
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={this.handleEmptyFields}>
           <label>
             Author:
             <input type="text" value={this.state.newAuthor} onChange={this.handleAuthorChange} />
