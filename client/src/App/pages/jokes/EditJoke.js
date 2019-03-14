@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import {Image} from 'cloudinary-react';
 
 class EditJoke extends Component {
   constructor(props){
