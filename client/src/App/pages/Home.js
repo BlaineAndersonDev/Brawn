@@ -1,19 +1,16 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import JokesContainer from './jokes/JokesContainer.js';
-
 
 class Home extends Component {
   render() {
     return (
     <div className="App">
       <h1>Project Home</h1>
-      <Link to={'./titles'}>
+      <Link to={'./jokes'}>
         <button variant="raised">
-            My Titles
+            My Jokes Blog
         </button>
       </Link>
-      <JokesContainer />
     </div>
     );
   }

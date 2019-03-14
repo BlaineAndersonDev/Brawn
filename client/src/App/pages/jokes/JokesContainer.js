@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Joke from './Joke.js';
 import CreateJoke from './CreateJoke.js';
@@ -38,6 +39,11 @@ class Jokes extends Component {
   render() {
     return (
       <div>
+        <Link to={'./'}>
+          <button variant="raised">
+              Home
+          </button>
+        </Link>
 
         <h1>JOKES</h1>
 

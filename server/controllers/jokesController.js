@@ -13,6 +13,7 @@ router.get('/', async (req, res) => {
   console.log(' >>> Entered Route GET `/api/jokes/`')
   const readResults = await knex('jokes')
     .select('*')
+    .orderBy('id', 'desc')
     .catch((err) => {
       console.log(err)
     });
