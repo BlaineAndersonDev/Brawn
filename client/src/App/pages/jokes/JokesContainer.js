@@ -3,7 +3,10 @@ import axios from 'axios';
 import Joke from './Joke.js';
 import CreateJoke from './CreateJoke.js';
 import {Image} from 'cloudinary-react';
-import cors from 'cors';
+
+
+
+// import cors from 'cors';
 // import {Image, Video, Transformation, CloudinaryContext} from 'cloudinary-react';
 
 class Jokes extends Component {
@@ -15,12 +18,14 @@ class Jokes extends Component {
       showWigit: false,
       uploadedFileCloudinaryUrl: '',
       uploadedFile: '',
-      newImagePublicId: 'null'
+      newImagePublicId: null,
+      cloudinaryPublicIdChange: ''
     };
   }
 
   async componentDidMount() {
     try {
+      console.log(process.env.TEST_DATA)
       await this.getJokes();
     } catch (error) {
       console.log(error)
@@ -91,7 +96,12 @@ class Jokes extends Component {
     });
   }
 
-  handleUpload = () => {
+  handleImageUpload = () => {
+    if (this.state.newImagePublicId !== null) {
+      console.log('this.state.newImagePublicId: NOT NULL!')
+      // SETUP: Remove previous image from DB.
+      this.setState({newImagePublicId: null})
+    }
     window.cloudinary.openUploadWidget(
       {
         cloud_name: 'BrawnImages',
@@ -99,19 +109,49 @@ class Jokes extends Component {
         tags: ['blaine']
       }, (error, result) => {
         if (result && result.event === "success") {
-          console.log(result);
-          console.log(result.info);
-          console.log(result.info.public_id);
           this.setState({newImagePublicId: result.info.public_id})
-          console.log('State: ' + this.state.newImagePublicId);
+          console.log('Image Upload Successful: ' + this.state.newImagePublicId)
         }
-      });
+      }
+    );
+  };
+
+  handleImageDelete = (event) => {
+    event.preventDefault()
+    axios.post(`/api/jokes/cloudinaryDelete`, null, {
+      params: {
+        publicId: this.state.cloudinaryPublicIdChange
+      }
+    })
+    .catch(err => {
+      console.warn(err);
+    })
+    // .then(res => {
+    //   // console.log(JSON.stringify(res));
+    //   // console.log(JSON.stringify(res.status));
+    //   // console.log(JSON.stringify(res.data));
+    // });
+  };
+
+  handleImageGet = () => {};
+  handleImageGetAll = () => {};
+
+  handleCloudinaryPublicIdChange = (event) => {
+    this.setState({cloudinaryPublicIdChange: event.target.value})
   }
 
   render() {
     return (
       <div>
       <button onClick={this.handleUpload}> Upload Images </button>
+
+      <form onSubmit={this.handleImageDelete}>
+        <label>
+          cloudinaryPublicId:
+          <input type="text" value={this.state.cloudinaryPublicIdChange} onChange={this.handleCloudinaryPublicIdChange} />
+        </label>
+        <input type="submit" value="Submit" />
+      </form>
 
         <h1>JOKES</h1>
 

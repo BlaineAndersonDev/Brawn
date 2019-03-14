@@ -1,6 +1,13 @@
 import knex from '../knexconfig.js';
 import cors from 'cors';
+import cloudinary from 'cloudinary';
 const router = require('express').Router();
+
+cloudinary.config({
+    cloud_name: 'brawnimages',
+    api_key: '926474368348286',
+    api_secret: 'gM75UVb4meYzSR4YWG0CdEZeTcg'
+});
 
 router.get('/', async (req, res) => {
   console.log(' >>> Entered Route GET `/api/jokes/`')
@@ -56,14 +63,20 @@ router.delete('/delete/:id', async (req, res) => {
     return res.json(deleteResults);
 });
 
-router.get('/wigit', async (req, res) => {
-  console.log(' >>> Entered Route GET `/api/jokes/wigit`')
-  const readResults = await knex('jokes')
-    .select('*')
-    .catch((err) => {
-      console.log(err)
-    });
-  return res.send(readResults);
+router.post('/cloudinaryDelete', async (req, res) => {
+  console.log(' >>> Entered Route GET `/api/jokes/cloudinaryDelete`')
+  console.log(' Params: ' + Object.keys(req.params))
+  console.log(' Query: ' + Object.keys(req.query))
+  const result = cloudinary.v2.uploader.destroy(
+    req.query.publicId, (error, result) => {
+      if (error) {
+        console.log('Error: ' + JSON.stringify(error))
+      } else {
+        console.log(result)
+      }
+    }
+  );
+  return res.send(result);
 });
 
 module.exports = router;

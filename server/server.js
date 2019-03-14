@@ -3,6 +3,7 @@ import express from 'express';
 import path from 'path';
 import knex from './knexconfig.js';
 import cors from 'cors';
+import dotenv from 'dotenv'
 
 // Create the app using express.
 const app = express();
