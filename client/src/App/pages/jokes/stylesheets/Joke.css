@@ -61,6 +61,7 @@
         }
           .ijUserAvatar{
             /* border: red 1px solid; */
+            box-shadow: 3px 3px 3px 2px var(--black-smoke);
           }
         .ijTitle{
           /* border: 1px white solid; */
@@ -210,8 +211,14 @@
       text-align: center;
       flex: 1 0 0;
       color: white;
-      margin: 3px;
+      margin: 15px;
     }
+      .ijImage{
+        border: black 1px solid;
+        box-shadow: 5px 5px 5px 3px var(--black-smoke);
+        max-height: 400px;
+        max-width: 300px;
+      }
 
 
 

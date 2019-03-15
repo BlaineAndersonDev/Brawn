@@ -81,7 +81,7 @@ class Joke extends Component {
 
   render() {
     let jokeDesc = null;
-      if (this.props.joke.body.length > 150) {
+      if (this.props.joke.body.length > 125) {
         console.log('LONG')
         jokeDesc = this.props.joke.body.substr(0, 200) + "..."
       } else {
@@ -95,10 +95,10 @@ class Joke extends Component {
     let userAvatar = (
       <Image
       cloudName="BrawnImages"
-      publicId={this.props.joke.imagePublicId}
+      publicId="seeds/geo_brawn_profile"
       width="75"
       height="75"
-      crop="scale"
+      crop="fit"
       className="ijUserAvatar"
       />
     )
@@ -106,11 +106,11 @@ class Joke extends Component {
     let jokeImage = null;
     if (this.state.imageChange) {
       jokeImage = (
-        <Image cloudName="BrawnImages" publicId={this.state.imageChange} width="300" height="300" crop="scale"/>
+        <Image cloudName="BrawnImages" publicId={this.state.imageChange} width="300" height="400" crop="scale"/>
       )
     } else {
       jokeImage = (
-        <Image cloudName="BrawnImages" publicId={this.props.joke.imagePublicId} width="300" height="300" crop="scale"/>
+        <Image cloudName="BrawnImages" publicId={this.props.joke.imagePublicId} height="400" width="300" crop="scale"/>
       )
     }
 

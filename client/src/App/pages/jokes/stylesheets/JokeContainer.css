@@ -21,14 +21,19 @@
   font-family: 'Sniglet', cursive;
 */
   .allJokeContainer{
-    font-family: 'Lora', serif;
+    /* font-family: 'Oswald', sans-serif; */
+    /* font-family: 'Lora', serif; */
+    /* font-family: 'Noto Serif', serif; */
+    font-family: 'Josefin Sans', sans-serif;
+    /* font-family: 'Shadows Into Light', cursive; */
+    /* font-family: 'Sniglet', cursive; */
     /* border: 1px red solid; */
     display: flex;
     flex-flow: column wrap;
     justify-content: center;
     align-items: center;
     text-align: center;
-    color: white;
+    color: var(--white-smoke);
     /* /client/src/App/pages/jokes/stylesheets */
     background: url(../../../../images/Background2.jpg) #6E7271;
     background-attachment: fixed;
