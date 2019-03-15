@@ -20,6 +20,18 @@
   font-family: 'Shadows Into Light', cursive;
   font-family: 'Sniglet', cursive;
 */
+#spinnerContainer{
+  z-index: 10;
+}
+  #spinner{
+    animation: spin 10s linear infinite reverse;
+  }
+  @keyframes spin {
+    100% {
+      transform: rotate(1turn);
+    }
+  }
+
   .allJokeContainer{
     font-family: 'Lora', serif;
     /* border: 1px red solid; */
@@ -29,7 +41,7 @@
     align-items: center;
     text-align: center;
     color: var(--white-smoke);
-    background: url(../../../../images/Background2.jpg) #6E7271;
+    background: url(/images/Background2.jpg) #6E7271;
     background-attachment: fixed;
     background-size: cover;
     background-repeat: no-repeat;

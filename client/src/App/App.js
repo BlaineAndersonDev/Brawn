@@ -20,7 +20,7 @@ class App extends Component {
     )
     return (
       <Switch>
-        <App/>
+        <App style={{background: "url(/images/background1.jpg)"}}/>
       </Switch>
     );
   }
