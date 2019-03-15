@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import EditJoke from './EditJoke.js';
 import DeleteJoke from './DeleteJoke.js';
+import SocialMedia from './SocialMedia.js';
 import axios from 'axios';
 import {Image} from 'cloudinary-react';
 import './stylesheets/Joke.css';
@@ -13,6 +14,7 @@ class Joke extends Component {
       toggleEditMenu: false,
       toggleDeleteMenu: false,
       imageChange: null,
+      adminOn: false,
     };
   }
 
@@ -81,11 +83,9 @@ class Joke extends Component {
 
   render() {
     let jokeDesc = null;
-      if (this.props.joke.body.length > 125) {
-        console.log('LONG')
-        jokeDesc = this.props.joke.body.substr(0, 200) + "..."
+      if (this.props.joke.body.length > 275) {
+        jokeDesc = this.props.joke.body.substr(0, 275) + "..."
       } else {
-        console.log('SHORT')
         jokeDesc = (
           this.props.joke.body
         )
@@ -148,33 +148,66 @@ class Joke extends Component {
       );
     }
 
+    let adminEditButton = null;
+    if (this.state.adminOn) {
+      adminEditButton = (
+        <div className="ijEdit">
+          {editMenu}
+        </div>
+      )
+    } else {
+      adminEditButton = null;
+    }
+
+    let adminDeleteButton = null;
+    if (this.state.adminOn) {
+      adminDeleteButton = (
+        <div className="ijDelete">
+          {deleteMenu}
+        </div>
+      )
+    } else {
+      adminDeleteButton = null;
+    }
+
     return (
       <div className="ijContainer">
 
         <div className="ijLeftBox">
           <div className="ijAvatarTitle">
-            <div className="ijAvatar">{userAvatar}</div>
-            <div className="ijTitle">{this.props.joke.title}</div>
+            <div className="ijAvatar">
+              {userAvatar}
+            </div>
+            <div className="ijTitle">
+              {this.props.joke.title}
+            </div>
           </div>
           <div className="ijDateAuthor">
             <div className="ijDate">
-            {moment(this.props.joke.created_at).format('MMM D YYYY')}
+              {moment(this.props.joke.created_at).format('MMM D YYYY')}
             </div>
-            <div className="ijAuthor">{this.props.joke.author}</div>
+            <div className="ijAuthor">
+              {this.props.joke.author}
+            </div>
           </div>
           <div className="ijDesc">
             {jokeDesc}
           </div>
-          <div className="ijReadMoreEditDelete">
-            <div className="ijReadMore">
-                <button className="ijButton">READ MORE...</button>
-              </div>
+          <div className="ijEditDelete">
             <div className="ijEdit">
-              {editMenu}
+              {adminEditButton}
             </div>
             <div className="ijDelete">
-              {deleteMenu}
+              {adminDeleteButton}
             </div>
+          </div>
+          <div className="ijReadMoreSocialMedia">
+            <div className="ijReadMore">
+              <button className="ijButton">READ MORE...</button>
+            </div>
+            <SocialMedia
+              joke={this.props.joke}
+            />
           </div>
         </div>
 
