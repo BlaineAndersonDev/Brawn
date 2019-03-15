@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Joke from './Joke.js';
 import CreateJoke from './CreateJoke.js';
 import DeleteJokeImage from './DeleteJokeImage.js';
 import {Image} from 'cloudinary-react';
+import './stylesheets/JokeContainer.css';
 // import {Image, Video, Transformation, CloudinaryContext} from 'cloudinary-react';
 
 class Jokes extends Component {
@@ -39,13 +39,18 @@ class Jokes extends Component {
   render() {
     return (
       <div>
-        <Link to={'./'}>
-          <button variant="raised">
-              Home
-          </button>
-        </Link>
-
-        <h1>JOKES</h1>
+        <div className="allJokeContainer">
+          <h3 className="jokeContainerTitle">Current Jokes</h3>
+          {this.state.jokes.map((joke) => {
+            return (
+              <Joke
+                key={joke.id}
+                joke={joke}
+                refreshJokes={this.refreshJokes}
+              />
+            )
+          })}
+        </div>
 
         <div style={{backgroundColor: "#ccffe6"}}>
           <h3>Delete a Joke by PublicId</h3>
@@ -59,19 +64,6 @@ class Jokes extends Component {
           <CreateJoke
             refreshJokes={this.refreshJokes}
           />
-        </div>
-
-        <div style={{backgroundColor: "#ccccff"}}>
-          <h3>Current Jokes</h3>
-          {this.state.jokes.map((joke) => {
-            return (
-              <Joke
-                key={joke.id}
-                joke={joke}
-                refreshJokes={this.refreshJokes}
-              />
-            )
-          })}
         </div>
 
         <div style={{backgroundColor: "#ff9999"}}>

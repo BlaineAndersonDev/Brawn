@@ -3,6 +3,8 @@ import EditJoke from './EditJoke.js';
 import DeleteJoke from './DeleteJoke.js';
 import axios from 'axios';
 import {Image} from 'cloudinary-react';
+import './stylesheets/Joke.css';
+import moment from 'moment';
 
 class Joke extends Component {
   constructor(props){
@@ -10,7 +12,7 @@ class Joke extends Component {
     this.state = {
       toggleEditMenu: false,
       toggleDeleteMenu: false,
-      imageChange: null
+      imageChange: null,
     };
   }
 
@@ -78,6 +80,29 @@ class Joke extends Component {
   };
 
   render() {
+    let jokeDesc = null;
+      if (this.props.joke.body.length > 150) {
+        console.log('LONG')
+        jokeDesc = this.props.joke.body.substr(0, 200) + "..."
+      } else {
+        console.log('SHORT')
+        jokeDesc = (
+          this.props.joke.body
+        )
+      }
+
+    // UPDATE WITH CHECK FOR ACTUAL USER AVATAR
+    let userAvatar = (
+      <Image
+      cloudName="BrawnImages"
+      publicId={this.props.joke.imagePublicId}
+      width="75"
+      height="75"
+      crop="scale"
+      className="ijUserAvatar"
+      />
+    )
+
     let jokeImage = null;
     if (this.state.imageChange) {
       jokeImage = (
@@ -103,7 +128,7 @@ class Joke extends Component {
       )
     } else {
       editMenu = (
-        <button onClick={this.onEditMenuClick}>Edit Joke</button>
+        <button onClick={this.onEditMenuClick} className="ijButtonSmall">Edit Joke</button>
       );
     }
 
@@ -119,18 +144,44 @@ class Joke extends Component {
       )
     } else {
       deleteMenu = (
-        <button onClick={this.onDeleteMenuClick}>Delete Joke</button>
+        <button onClick={this.onDeleteMenuClick} className="ijButtonSmall">Delete Joke</button>
       );
     }
 
     return (
-      <div>
-        <p>{this.props.joke.id}</p>
-        <p>{this.props.joke.author}</p>
-        <p>{this.props.joke.body}</p>
-        <div>{jokeImage}</div>
-        {editMenu}
-        {deleteMenu}
+      <div className="ijContainer">
+
+        <div className="ijLeftBox">
+          <div className="ijAvatarTitle">
+            <div className="ijAvatar">{userAvatar}</div>
+            <div className="ijTitle">{this.props.joke.title}</div>
+          </div>
+          <div className="ijDateAuthor">
+            <div className="ijDate">
+            {moment(this.props.joke.created_at).format('MMM D YYYY')}
+            </div>
+            <div className="ijAuthor">{this.props.joke.author}</div>
+          </div>
+          <div className="ijDesc">
+            {jokeDesc}
+          </div>
+          <div className="ijReadMoreEditDelete">
+            <div className="ijReadMore">
+                <button className="ijButton">READ MORE...</button>
+              </div>
+            <div className="ijEdit">
+              {editMenu}
+            </div>
+            <div className="ijDelete">
+              {deleteMenu}
+            </div>
+          </div>
+        </div>
+
+        <div className="ijRightBox">
+          <div className="ijImage">{jokeImage}</div>
+        </div>
+
       </div>
     );
   }

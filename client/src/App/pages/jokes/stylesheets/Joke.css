@@ -1,0 +1,227 @@
+/* Most Smartphones Mobiles (Portrait) */
+@media (min-width: 320px) and (max-width: 480px) {
+
+}
+/* Low Resolution Tablets, Mobiles (Landscape) */
+@media (min-width: 481px) and (max-width: 767px) {
+
+}
+/* Tablets, Ipads (portrait) */
+@media (min-width: 768px) and (max-width: 1024px) {
+
+}
+/* Laptops, Desktops */
+@media (min-width: 1025px) and (max-width: 1280px) {
+  .ijContainer{
+    /* border: 3px green solid; */
+    width: 80%;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    background: rgba(50, 50, 50, .90);
+    border-radius: 10px;
+    margin: 3px;
+    margin-bottom: 50px;
+  }
+    .ijLeftBox{
+      /* border: 1px orange solid; */
+      width: 100%;
+      display: flex;
+      flex-flow: column wrap;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      flex: 1 0 0;
+      color: white;
+      margin: 10px;
+    }
+      .ijAvatarTitle{
+        /* border: 1px blue solid; */
+        width: 100%;
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: flex-start;
+        align-items: center;
+        text-align: center;
+        margin: 3px;
+      }
+        .ijAvatar{
+          /* border: 1px orange solid; */
+          width: 100%;
+          display: flex;
+          flex-flow: row nowrap;
+          justify-content: center;
+          align-items: center;
+          text-align: center;
+          flex: 1 0 0;
+          margin: 3px;
+        }
+          .ijUserAvatar{
+            /* border: red 1px solid; */
+          }
+        .ijTitle{
+          /* border: 1px white solid; */
+          width: 100%;
+          min-height: 75px;
+          font-size: 1.5em;
+          display: flex;
+          flex-flow: row nowrap;
+          justify-content: center;
+          align-items: center;
+          text-align: center;
+          margin: 3px;
+          flex: 4 0 0;
+        }
+      .ijDateAuthor{
+        /* border: 1px blue solid; */
+        width: 100%;
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: flex-start;
+        align-items: center;
+        text-align: center;
+        margin: 3px;
+      }
+        .ijDate{
+          /* border: 1px orange solid; */
+          width: 100%;
+          display: flex;
+          flex-flow: row nowrap;
+          justify-content: center;
+          align-items: center;
+          text-align: center;
+          flex: 1 0 0;
+          margin: 3px;
+          margin-left: 5%;
+        }
+        .ijAuthor{
+          /* border: 1px white solid; */
+          width: 100%;
+          display: flex;
+          flex-flow: row nowrap;
+          justify-content: center;
+          align-items: center;
+          text-align: center;
+          margin: 3px;
+          flex: 2 0 0;
+          margin-right: 5%;
+        }
+      .ijDesc{
+        width: 100%;
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        font-size: 1.25em;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        margin-left: 20px;
+        margin-right: 20px;
+      }
+      .ijReadMoreEditDelete{
+        /* border: 1px purple solid; */
+        width: 100%;
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+        .ijReadMore{
+          /* border: 1px white solid; */
+          width: 100%;
+          display: flex;
+          flex-flow: row nowrap;
+          justify-content: center;
+          align-items: center;
+          text-align: center;
+          margin: 3px;
+          flex: 4 0 0;
+        }
+          .ijButton{
+            width: 100%;
+            font-size: 1.25em;
+            text-decoration: none;
+            color: var(--white-smoke);
+            background: var(--main-color);
+            border: var(--dark-gray) 2px solid;
+            padding: 10px;
+            display: flex; /* Centers Text */
+            justify-content: center;/* Centers Text */
+            align-items: center;/* Centers Text */
+            transition: 0.25s linear;
+          }
+          .ijButton:hover{
+            background: var(--red-blood);
+            color: var(--black-smoke);
+            border: var(--black-smoke) 2px solid;
+          }
+        .ijEdit{
+          /* border: 1px red solid; */
+          width: 100%;
+          display: flex;
+          flex-flow: row nowrap;
+          justify-content: center;
+          align-items: center;
+          text-align: center;
+          margin: 3px;
+          flex: 1 0 0;
+        }
+        .ijDelete{
+          /* border: 1px orange solid; */
+          width: 100%;
+          display: flex;
+          flex-flow: row nowrap;
+          justify-content: center;
+          align-items: center;
+          text-align: center;
+          margin: 3px;
+          flex: 1 0 0;
+        }
+          .ijButtonSmall{
+            width: 100%;
+            font-size: 1em;
+            text-decoration: none;
+            color: var(--white-smoke);
+            background: var(--main-color);
+            border: var(--dark-gray) 2px solid;
+            padding: 10px;
+            display: flex; /* Centers Text */
+            justify-content: center;/* Centers Text */
+            align-items: center;/* Centers Text */
+            transition: 0.25s linear;
+          }
+          .ijButtonSmall:hover{
+            background: var(--red-blood);
+            color: var(--black-smoke);
+            border: var(--black-smoke) 2px solid;
+          }
+    .ijRightBox{
+      /* border: 1px red solid; */
+      width: 100%;
+      display: flex;
+      flex-flow: column wrap;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      flex: 1 0 0;
+      color: white;
+      margin: 3px;
+    }
+
+
+
+
+
+
+
+
+  }
+  /* Large Desktops */
+  @media (min-width: 1281px) {
+
+  }

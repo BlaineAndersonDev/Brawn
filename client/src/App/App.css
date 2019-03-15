@@ -9,16 +9,13 @@ html, body{
   min-height:100%;
 }
 #appNavigation{
-  background:#66ccff;
 }
 #appBody{
-  background:pink;
   Display: flex;
   flex-direction: column;
   min-height: 100vh;
 }
 #appFooter{
-  background:#66ff66;
   height: 150px;
   flex: 1;
 }

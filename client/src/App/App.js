@@ -9,20 +9,18 @@ import JokesContainer from './pages/jokes/JokesContainer.js';
 class App extends Component {
   render() {
     const App = () => (
-      <div>
+      <div id="appContainer">
+        <div id="appNavigation"><Nav /></div>
         <Switch>
           <Route exact path='/' component={Home}/>
           <Route path='/jokes' component={JokesContainer}/>
         </Switch>
+        <div id="appFooter"><Footer /></div>
       </div>
     )
     return (
       <Switch>
-        <div id="appContainer">
-          <div id="appNavigation"><Nav /></div>
-          <div id="appBody"><App /></div>
-          <div id="appFooter"><Footer /></div>
-        </div>
+        <App/>
       </Switch>
     );
   }
