@@ -10,9 +10,6 @@ const app = express();
 
 app.use(cors())
 
-// Serve static files from the React app
-app.use(express.static(path.join(__dirname, 'client/build')));
-
 // 'Import' & 'Mount' the router into the app.
 // I.E. `http://localhost:????/api/...`.
 app.use('/api', require('./router.js'));
