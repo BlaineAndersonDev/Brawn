@@ -5,14 +5,15 @@ import knex from './knexconfig.js';
 import cors from 'cors';
 import dotenv from 'dotenv'
 
+// Allows the API to take requests on the given `port`.
+// I.E. `http://localhost:3001/api/...`.
+const port = process.env.PORT || 3001;
+
 // Create the app using express.
 const app = express();
 
 app.use(cors())
 
-// 'Import' & 'Mount' the router into the app.
-// I.E. `http://localhost:????/api/...`.
-app.use('/api', require('./router.js'));
 
 // Allows express to Parse `request.body`.
 app.use(bodyParser.urlencoded({extended: false}));
@@ -20,13 +21,15 @@ app.use(bodyParser.json());
 
 // Set the API's internal port.
 // I.E. `http://localhost:3001`.
-app.set('port', (process.env.PORT || 3001));
+// app.set('port', (process.env.PORT || 3001));
 
-// Allows the API to take requests on the given `port`.
-// I.E. `http://localhost:3001/api/...`.
-app.listen(app.get('port'), () => {
-  console.log(`Listening on ${app.get('port')}`)
-});
+app.listen(port), () => {
+  console.log(`Listening on ${port}`)
+};
+
+// 'Import' & 'Mount' the router into the app.
+// I.E. `http://localhost:????/api/...`.
+app.use('/api', require('./router.js'));
 
 // The "catchall" handler: for any request that doesn't
 // match one above, send back React's index.html file.
