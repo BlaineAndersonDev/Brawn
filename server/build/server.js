@@ -26,14 +26,14 @@ var _dotenv2 = _interopRequireDefault(_dotenv);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+// Allows the API to take requests on the given `port`.
+// I.E. `http://localhost:3001/api/...`.
+var port = process.env.PORT || 3001;
+
 // Create the app using express.
 var app = (0, _express2.default)();
 
 app.use((0, _cors2.default)());
-
-// 'Import' & 'Mount' the router into the app.
-// I.E. `http://localhost:????/api/...`.
-app.use('/api', require('./router.js'));
 
 // Allows express to Parse `request.body`.
 app.use(_bodyParser2.default.urlencoded({ extended: false }));
@@ -41,12 +41,20 @@ app.use(_bodyParser2.default.json());
 
 // Set the API's internal port.
 // I.E. `http://localhost:3001`.
-app.set('port', process.env.PORT || 3001);
+// app.set('port', (process.env.PORT || 3001));
 
-// Allows the API to take requests on the given `port`.
-// I.E. `http://localhost:3001/api/...`.
-app.listen(app.get('port'), function () {
-  console.log('Listening on ' + app.get('port'));
+app.listen(port), function () {
+  console.log('Listening on ' + port);
+};
+
+// 'Import' & 'Mount' the router into the app.
+// I.E. `http://localhost:????/api/...`.
+app.use('/api', require('./router.js'));
+
+// The "catchall" handler: for any request that doesn't
+// match one above, send back React's index.html file.
+app.get('*', function (req, res) {
+  res.sendFile(_path2.default.join(__dirname + '/client/build/index.html'));
 });
 
 // Exports the `Express App` to be used elsewhere in the project.
